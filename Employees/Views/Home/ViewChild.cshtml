@@ -1,0 +1,29 @@
+﻿@model Employees.Models.Employee
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.Name</h1>
+<hr />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Child
+        </dt>
+            @foreach (var item in Model.Children)
+            {
+                    <dd style="width: 10rem; padding-right:2px;">
+                        @Html.DisplayFor(model => item.LastName)
+                        @Html.DisplayFor(model => item.Name)
+                        @Html.DisplayFor(model => item.MiddleName)
+                    </dd>
+            }
+    </dl>
+</div>
+<div>
+    <a asp-controller="Children" asp-action="Create" class="btn btn-secondary">Create Children</a>
+    <a asp-controller="Children" asp-action="Index" class="btn btn-secondary">View all children</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+

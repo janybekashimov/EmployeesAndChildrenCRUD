@@ -1,0 +1,175 @@
+﻿@model IEnumerable<Employees.Models.Employee>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col">
+        <h1>Employees</h1>
+    </div>
+    <div class="col text-right">
+        <a asp-controller="Children" asp-action="Index" class="btn btn-info mx-2">
+            Children List
+        </a>
+        <a asp-action="Create" class="btn btn-success">Create New Employees</a>
+    </div>
+</div>
+
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Position)
+            </th>
+            <th>
+                Child
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+
+                <td>
+
+                    <a asp-route-Id="@item.Id" asp-action="ViewChild" >
+                        @Html.DisplayFor(modelItem => item.Name)
+                     </a>
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+                <td>
+                    @item.Children.Count()
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-secondary" })
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-danger" })
+*@
+                    <div  role="group">
+                        <a asp-route-Id="@item.Id" asp-action="Edit" class="btn btn-primary m-1">
+                            Edit
+                        </a>
+                        <a asp-route-Id="@item.Id" asp-action="Details" class="btn btn-primary">
+                            Details
+                        </a>
+                        <a asp-route-Id="@item.Id" asp-action="Delete" class="btn btn-danger">
+                            Delete
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@*@model IEnumerable<Employees.Models.Employee>
+
+<div class="container p-3 bg-white">
+    <div class="row pt-4 py-2">
+        <div class="col-6">
+            <h2 class="text-primary">Employee List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="Children" asp-action="Index" class="btn btn-info mx-2">
+                Children List
+            </a>
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus"></i> &nbsp; Create New Employee
+            </a>
+
+        </div>
+    </div>
+
+    <br />
+
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-stripped py-2" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Last Name
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Middle Name
+                    </th>
+                    <th>
+                        Birth Date
+                    </th>
+                    <th>
+                        Position
+                    </th>
+                    <th>
+                        CName
+                    </th>
+                    <th></th>
+                </tr>
+            <tbody>
+                    @foreach (var obj in Model)
+                    {
+                    <tr>
+                        <td width="30%">@obj.LastName</td>
+                        <td width="10%">@obj.Name</td>
+                        <td width="20%">@obj.MiddleName</td>
+                        <td width="20%">@obj.BirthDate</td>
+                        <td width="20%">@obj.Position</td>
+                        <td width="20%">@obj.Children.Name</td>
+
+                        <td class="text-center">
+                            <div class="w-65 btn-group" role="group">
+                                <a asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary mx-2">
+                                    Edit
+                                </a>
+                                <a asp-route-Id="@obj.Id" asp-action="Details" class="btn btn-primary mx-2">
+                                    Details
+                                </a>
+                                <a asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger mx-2">
+                                    Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+            </tbody>
+            </thead>
+        </table>
+    }
+    else
+    {
+        <p>No product exist.</p>
+    }
+
+</div>*@
