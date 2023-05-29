@@ -1,14 +1,10 @@
-using Employees.Data;
-using Employees.Services;
-using FluentValidation.AspNetCore;
-using MediatR;
+using Application;
+using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Reflection;
 
 namespace Employees
 {
@@ -25,17 +21,7 @@ namespace Employees
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-            );
-            services.AddScoped<IEmployeeService, EmployeeService>();
-            services.AddScoped<IChildrenService, ChildrenService>();
-            services.AddScoped<IDropDownSelectService, DropDownSelectService>();
-            services.AddMediatR(Assembly.GetExecutingAssembly());
-            services.AddFluentValidation(v =>
-            {
-                v.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-            });
+            services.AddApplication().AddInfrastructure(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

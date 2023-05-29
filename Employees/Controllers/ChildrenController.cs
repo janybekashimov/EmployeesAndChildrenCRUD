@@ -1,9 +1,13 @@
-﻿using Employees.Features.Child.Commands;
-using Employees.Features.Child.Queries;
-using Employees.Features.EmployeeDropDown.Queries;
+﻿using Application.Mediatr.Child.Commands;
+using Application.Mediatr.Child.Queries;
+using Application.Mediatr.EmployeeDropDown.Queries;
+using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Employees.Controllers
@@ -29,7 +33,12 @@ namespace Employees.Controllers
 
         public IActionResult Create()
         {
-            ViewData["EmployeeList"] = _mediator.Send(new GetEmployeeDropDownQuery()).Result;
+            var employeeList = _mediator.Send(new GetEmployeeDropDownQuery()).Result;
+            ViewData["EmployeeList"] = employeeList.Select(e => new SelectListItem
+            {
+                Text = e.Name,
+                Value = e.Id.ToString()
+            });
             return View();
         }
 
@@ -49,12 +58,37 @@ namespace Employees.Controllers
             {
                 ModelState.AddModelError("", "Unable to save changes.");
             }
+            var employeeList = _mediator.Send(new GetEmployeeDropDownQuery()).Result;
+            ViewData["EmployeeList"] = employeeList.Select(e => new SelectListItem
+            {
+                Text = e.Name,
+                Value = e.Id.ToString()
+            });
             return View();
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            return View(await _mediator.Send(new GetChildrenByIdQuery() { Id = id }));
+            var children = await _mediator.Send(new GetChildrenByIdQuery() { Id = id});
+            var employeeList = await _mediator.Send(new GetEmployeeDropDownQuery());
+
+            ViewData["EmployeeList"] = employeeList.Select(e => new SelectListItem
+            {
+                Text = e.Name,
+                Value = e.Id.ToString()
+            });
+
+            var command = new UpdateChildrenCommand
+            {
+                Id = children.Id,
+                LastName = children.LastName,
+                Name = children.Name,
+                MiddleName = children.MiddleName,
+                BirthDate = children.BirthDate,
+                EmployeeId = children.EmployeeId,
+                Employee = children.Employee
+            };
+            return View(command);
         }
 
         [HttpPost]
@@ -78,6 +112,13 @@ namespace Employees.Controllers
             {
                 ModelState.AddModelError("", "Unable to save changes.");
             }
+
+            var employeeList = await _mediator.Send(new GetEmployeeDropDownQuery());
+            ViewData["EmployeeList"] = employeeList.Select(e => new SelectListItem
+            {
+                Text = e.Name,
+                Value = e.Id.ToString()
+            });
             return View(command);
         }
 
