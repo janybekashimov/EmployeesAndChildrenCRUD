@@ -1,6 +1,5 @@
 ﻿using Application.Common.Interfaces;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
@@ -24,7 +23,7 @@ namespace Application.Mediatr.Child.Commands
             }
 
             public async Task<int> Handle(DeleteChildrenCommand command, CancellationToken cancellationToken)
-            {            
+            {
                 try
                 {
                     var children = await _context.Children.FindAsync(command.Id);
@@ -38,7 +37,7 @@ namespace Application.Mediatr.Child.Commands
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex.Message,"Произошла ошибка при удалении!");
+                    _logger.LogError(ex.Message, "Произошла ошибка при удалении!");
                     return 0;
                 }
             }

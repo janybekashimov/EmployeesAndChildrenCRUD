@@ -1,7 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
@@ -21,7 +20,6 @@ namespace Application.Mediatr.Child.Commands
 
         public class UpdateChildrenCommandHandler : IRequestHandler<UpdateChildrenCommand, int>
         {
-     
             private readonly IApplicationDbContext _context;
             private readonly ILogger<UpdateChildrenCommandHandler> _logger;
 

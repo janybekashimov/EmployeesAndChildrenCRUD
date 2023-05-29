@@ -6,65 +6,73 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
-    <div class="col">
-        <h1>Children</h1>
+<div class="container p-3 bg-white">
+    <div class="row pt-4 py-2">
+        <div class="col-6">
+            <h2 class="text-primary">Employee List</h2>
+        </div>
+        <div class="col text-right">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-info mx-2">
+                Children List
+            </a>
+            <a asp-action="Create" class="btn btn-success">Create New Children</a>
+        </div>
     </div>
-    <div class="col text-right">
-        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back To Employees</a>
-        <a asp-action="Create" class="btn btn-success">Create New Children</a>
-    </div>
-</div>
 
-<br />
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MiddleName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
-            </th>
-            <th>
-                Parent
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <br />
+    <table class="table table-bordered table-stripped py-2" style="width:100%">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MiddleName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BirthDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Employee.LastName)
-                    @Html.DisplayFor(modelItem => item.Employee.Name)
-                    @Html.DisplayFor(modelItem => item.Employee.MiddleName)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-secondary" })
-                    @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-danger" })
-                </td>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Middle Name
+                </th>
+                <th>
+                    Birth Date
+                </th>
+                <th>
+                    Parent
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @if (Model.Count() > 0)
+            {
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td nowrap>@obj.LastName</td>
+                        <td nowrap>@obj.Name</td>
+                        <td nowrap>@obj.MiddleName</td>
+                        <td nowrap>@obj.BirthDate</td>
+                        <td nowrap>@obj.Employee.Name @obj.Employee.LastName</td>
+
+                        <td class="text-center">
+                            <div class="w-65 btn-group" role="group">
+                                <a asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary">
+                                    Edit
+                                </a>
+                                <a asp-route-Id="@obj.Id" asp-action="Details" class="btn btn-primary">
+                                    Details
+                                </a>
+                                <a asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger">
+                                    Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <p>No product exist.</p>
+            }
+        </tbody>
+    </table>
+</div>

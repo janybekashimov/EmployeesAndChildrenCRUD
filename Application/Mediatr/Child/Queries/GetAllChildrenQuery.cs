@@ -13,6 +13,7 @@ namespace Application.Mediatr.Child.Queries
     public class GetAllChildrenQuery : IRequest<IEnumerable<Children>>
     {
     }
+
     public class GetAllChildrenQueryHandler : IRequestHandler<GetAllChildrenQuery, IEnumerable<Children>>
     {
         private readonly IApplicationDbContext _context;
@@ -37,5 +38,4 @@ namespace Application.Mediatr.Child.Queries
             }
         }
     }
-    
 }

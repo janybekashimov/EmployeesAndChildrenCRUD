@@ -13,6 +13,7 @@ namespace Application.Mediatr.Child.Queries
     {
         public int Id { get; set; }
     }
+
     public class GetChildrenByIdQueryHandler : IRequestHandler<GetChildrenByIdQuery, Children>
     {
         private readonly IApplicationDbContext _context;

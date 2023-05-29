@@ -13,6 +13,7 @@ namespace Application.Mediatr.Employ.Queries
     public class GetAllEmploeesQuery : IRequest<IEnumerable<Employee>>
     {
     }
+
     public class GetAllPlayersQueryHandler : IRequestHandler<GetAllEmploeesQuery, IEnumerable<Employee>>
     {
         private readonly IApplicationDbContext _context;

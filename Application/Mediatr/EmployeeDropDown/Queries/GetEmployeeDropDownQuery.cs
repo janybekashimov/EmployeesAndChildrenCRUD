@@ -1,12 +1,10 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,6 +13,7 @@ namespace Application.Mediatr.EmployeeDropDown.Queries
     public class GetEmployeeDropDownQuery : IRequest<IEnumerable<Employee>>
     {
     }
+
     public class GetEmployeeDropDownQueryHandler : IRequestHandler<GetEmployeeDropDownQuery, IEnumerable<Employee>>
     {
         private readonly IApplicationDbContext _context;

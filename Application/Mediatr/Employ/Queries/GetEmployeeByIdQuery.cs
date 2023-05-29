@@ -13,6 +13,7 @@ namespace Application.Mediatr.Employ.Queries
     {
         public int Id { get; set; }
     }
+
     public class GetEmployeeByIdQueryHandler : IRequestHandler<GetEmployeeByIdQuery, Employee>
     {
         private readonly IApplicationDbContext _context;
@@ -37,5 +38,4 @@ namespace Application.Mediatr.Employ.Queries
             }
         }
     }
-    
 }
